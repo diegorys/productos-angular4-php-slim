@@ -75,12 +75,35 @@ $app->get("/producto/:id/delete", function($id) use($app, $db) {
 });
 
 // ACTUALIZAR UN PRODUCTO
-/*$app->post("/producto", function() use($app, $db) {
-	echo "Actualizar un producto";
+$app->post("/producto/:id/update", function($id) use($app, $db) {
+	$json = $app->request->post('json');
+	$data = json_decode($json, true);
+	$sql = "UPDATE productos SET ".
+				"nombre = '{$data['nombre']}',".
+				"descripcion = '{$data['descripcion']}',".
+				"precio = '{$data['precio']}'
+			WHERE id = " . $id . "
+	";
+	$query = $db->query($sql);
+
+	$result = array(
+		'status' => 'error',
+		'code' => 404,
+		'message' => 'Product not found'
+	);
+
+	if ($query && mysqli_affected_rows($db)) {
+		$result = array(
+			'status' => 'success',
+			'code' => 200,
+			'message' => "Product updated"
+		);
+	}
+	echo json_encode($result);
 });
 
 // SUBIR UNA IMAGEN A UN PRODUCTO
-$app->post("/producto", function() use($app, $db) {
+/*$app->post("/producto", function() use($app, $db) {
 	echo "Subir imagen a un producto";
 });*/
 
