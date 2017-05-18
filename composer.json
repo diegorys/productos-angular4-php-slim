@@ -1,0 +1,16 @@
+{
+    "name": "diegorys/ejemplo",
+    "description": "Ejemplo de API Rest como backend.",
+    "require": {
+        "slim/slim": "2.*"
+    },
+    "autoload": {
+        "classmap": ["src"]
+    },
+    "authors": [
+        {
+            "name": "Diego de los Reyes Rodríguez",
+            "email": "diegorys@gmail.com"
+        }
+    ]
+}
