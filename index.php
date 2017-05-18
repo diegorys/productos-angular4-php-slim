@@ -29,12 +29,30 @@ $app->get("/productos", function() use($app, $db) {
 });
 
 // DEVOLVER UN SOLO PRODUCTO
-/*$app->get("/producto", function() use($app, $db) {
-	echo "Devolver un solo producto";
+$app->get("/producto/:id", function($id) use($app, $db) {
+	$sql = 'SELECT * FROM productos WHERE id=' . $id . ' ORDER BY id DESC';
+	$query = $db->query($sql);
+
+	$result = array(
+		'status' => 'error',
+		'code' => 404,
+		'message' => 'Product not found'
+	);
+
+	if ($query->num_rows == 1) {
+		$producto = $query->fetch_assoc();
+		$result = array(
+			'status' => 'success',
+			'code' => 200,
+			'data' => $producto
+		);
+	}
+	
+	echo json_encode($result);
 });
 
 // ELIMINAR UN PRODUCTO
-$app->post("/producto", function() use($app, $db) {
+/*$app->post("/producto", function() use($app, $db) {
 	echo "Eliminar un producto";
 });
 
