@@ -12,6 +12,43 @@ $app->get("/pruebas", function() use($app, $db) {
 	echo "Hola mundo";
 });
 
+// LISTAR TODOS LOS PRODUCTOS
+$app->get("/productos", function() use($app, $db) {
+	$sql = 'SELECT * FROM productos ORDER BY id DESC';
+	$query = $db->query($sql);
+	$productos = array();
+	while ($producto = $query->fetch_assoc()) {
+		$productos[] = $producto;
+	}
+	$result = array(
+			'status' => 'success',
+			'code' => 200,
+			'data' => $productos
+		);
+	echo json_encode($result);
+});
+
+// DEVOLVER UN SOLO PRODUCTO
+/*$app->get("/producto", function() use($app, $db) {
+	echo "Devolver un solo producto";
+});
+
+// ELIMINAR UN PRODUCTO
+$app->post("/producto", function() use($app, $db) {
+	echo "Eliminar un producto";
+});
+
+// ACTUALIZAR UN PRODUCTO
+$app->post("/producto", function() use($app, $db) {
+	echo "Actualizar un producto";
+});
+
+// SUBIR UNA IMAGEN A UN PRODUCTO
+$app->post("/producto", function() use($app, $db) {
+	echo "Subir imagen a un producto";
+});*/
+
+// GUARDAR PRODUCTOS
 $app->post('/productos', function() use($app, $db) {
 	$json = $app->request->post('json');
 	$data = json_decode($json, true);
