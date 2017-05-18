@@ -52,12 +52,30 @@ $app->get("/producto/:id", function($id) use($app, $db) {
 });
 
 // ELIMINAR UN PRODUCTO
-/*$app->post("/producto", function() use($app, $db) {
-	echo "Eliminar un producto";
+$app->get("/producto/:id/delete", function($id) use($app, $db) {
+	$sql = 'DELETE FROM productos WHERE id=' . $id;
+	$query = $db->query($sql);
+	echo $query;
+
+	$result = array(
+		'status' => 'error',
+		'code' => 404,
+		'message' => 'Product not found'
+	);
+
+	if ($query && mysqli_affected_rows($db)) {
+		$result = array(
+			'status' => 'success',
+			'code' => 200,
+			'message' => "Product deleted"
+		);
+	}
+	
+	echo json_encode($result);
 });
 
 // ACTUALIZAR UN PRODUCTO
-$app->post("/producto", function() use($app, $db) {
+/*$app->post("/producto", function() use($app, $db) {
 	echo "Actualizar un producto";
 });
 
