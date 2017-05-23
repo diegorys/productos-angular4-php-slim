@@ -139,6 +139,7 @@ $app->post("/upload-file", function() use($app, $db) {
 			$result = array(
 				'status' => 'success',
 				'code' => 200,
+				'filename' => $file_name,
 				'message' => 'File uploaded'
 			);
 		}
