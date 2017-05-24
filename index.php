@@ -65,7 +65,6 @@ $app->get("/producto/:id", function($id) use($app, $db) {
 $app->get("/producto/:id/delete", function($id) use($app, $db) {
 	$sql = 'DELETE FROM productos WHERE id=' . $id;
 	$query = $db->query($sql);
-	echo $query;
 
 	$result = array(
 		'status' => 'error',
