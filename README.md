@@ -1,4 +1,4 @@
-# PRODUCTOS
+# Productos
 
 Web desarrollada con:
 * Angular4: para el frontend.
