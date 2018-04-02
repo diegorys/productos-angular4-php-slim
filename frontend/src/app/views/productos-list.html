@@ -1,0 +1,33 @@
+<h2>{{ titulo }}</h2>
+<hr />
+
+<div *ngIf="!productos">
+	Cargando listado de productos...
+</div>
+
+<div *ngIf="productos">
+	<div class="row">
+		<div class="col-lg-3" *ngFor="let producto of productos">
+			<div class="thumbnail">
+				<div *ngIf="producto.imagen" class="imagen_container">
+					<img src="http://ejemplo.dev/uploads/{{producto.imagen}}" class="producto_imagen" />
+				</div>
+				<div *ngIf="!producto.imagen">
+					<div class="producto_relleno"></div>
+				</div>
+				<div class="caption"></div>
+				<h3>{{producto.nombre}}</h3>
+				<p>{{producto.precio}} €</p>
+				<div class="botones" *ngIf="confirmado != producto.id">
+					<a [routerLink]="['/producto', producto.id]" class="btn btn-md btn-primary">Ver</a>
+					<a [routerLink]="['/editar-producto', producto.id]" class="btn btn-md btn-warning">Editar</a>
+					<a (click)="borrarConfirm(producto.id);" class="btn btn-md btn-danger">Borrar</a>
+				</div>
+				<div class="seguro" *ngIf="confirmado == producto.id">
+					<a (click)="onDeleteProducto(producto.id);" class="btn btn-md btn-danger">Quiero eliminarlo</a>
+					<a (click)="cancelarConfirm();" class="btn btn-md btn-warning">Cancelar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
